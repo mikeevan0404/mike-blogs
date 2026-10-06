@@ -69,12 +69,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden">
                 {/* 全站背景图 */}
                 <div className="absolute inset-0 z-[-10] bg-cover bg-center" style={{ backgroundImage: 'url(/bg.jpg)' }}></div>
-                {/* 暗色遮罩，保证文字可读 */}
-                <div className="absolute inset-0 z-[-9.5] bg-black/30 dark:bg-black/50"></div>
-                <div className="absolute inset-0 z-[-9] bg-white/30 dark:bg-slate-900/40 backdrop-blur-sm md:backdrop-blur-md transition-colors duration-1000"></div>
+                {/* 暗色遮罩，保证文字可读（已调淡，露出背景山景） */}
+                <div className="absolute inset-0 z-[-9.5] bg-black/15 dark:bg-black/25"></div>
+                <div className="absolute inset-0 z-[-9] bg-white/15 dark:bg-slate-900/20 backdrop-blur-[2px] md:backdrop-blur-sm transition-colors duration-1000"></div>
 
                 <div
-                  className="gradient-bg absolute inset-0 z-[-8] opacity-60 dark:opacity-20 mix-blend-color transition-opacity duration-1000 transform-gpu"
+                  className="gradient-bg absolute inset-0 z-[-8] opacity-40 dark:opacity-15 mix-blend-color transition-opacity duration-1000 transform-gpu"
                   style={{
                     background: `linear-gradient(-45deg, ${siteConfig.themeColors.join(', ')})`,
                     backgroundSize: '400% 400%',
