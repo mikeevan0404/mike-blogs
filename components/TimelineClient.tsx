@@ -54,6 +54,7 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
       const A = Math.min(cw * 0.11, 100);
       const steps = 400;
       let d = '';
+      let started = false;
       const clampSeg = (y: number) => {
         if (y <= ys[0]) return 0;
         if (y >= ys[ys.length - 1]) return ys.length - 2;
@@ -64,11 +65,14 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
       };
       for (let i = 0; i <= steps; i++) {
         const y = (i / steps) * ch;
+        // 只画第一个节点到最后一个节点之间的波浪：顶部/底部留白，不产生截断斜线
+        if (y < ys[0] || y > ys[ys.length - 1]) continue;
         const seg = clampSeg(y);
         const y0 = ys[seg];
         const y1 = ys[seg + 1];
         const x = cx + A * Math.sin(Math.PI * (y - y0) / (y1 - y0));
-        d += (i === 0 ? 'M' : 'L') + ` ${x.toFixed(1)},${y.toFixed(1)}`;
+        d += (started ? 'L' : 'M') + ` ${x.toFixed(1)},${y.toFixed(1)}`;
+        started = true;
       }
       setWavePath(d);
     };
