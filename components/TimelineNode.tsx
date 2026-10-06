@@ -15,10 +15,8 @@ export default function TimelineNode({ post, index }: { post: any, index: number
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`mb-12 flex justify-between items-center w-full ${isLeft ? 'md:flex-row-reverse' : 'flex-row'}`}
     >
-      {/* 留出对面的一半空白，并画出连接中心线的横向线段（左右交替，形成 S 型蜿蜒） */}
-      <div className="order-1 w-5/12 hidden md:block relative">
-        <div className={`absolute top-1/2 -translate-y-1/2 h-[2px] left-0 right-0 bg-gradient-to-r ${isLeft ? 'from-indigo-400/70 to-transparent' : 'from-transparent to-indigo-400/70'}`}></div>
-      </div>
+      {/* 留出对面的一半空白（S 曲线由此穿过） */}
+      <div className="order-1 w-5/12 hidden md:block"></div>
 
       {/* 中间的圆形节点 */}
       <div className="z-20 flex items-center justify-center order-1 bg-white dark:bg-slate-900 shadow-xl w-6 h-6 rounded-full border-4 border-indigo-400 ring-4 ring-indigo-200/50 dark:ring-indigo-900/30 transition-colors duration-1000"></div>

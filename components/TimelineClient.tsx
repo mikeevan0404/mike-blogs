@@ -258,7 +258,39 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
             transition={{ duration: 0.3 }}
             className="relative overflow-hidden p-2 md:p-10 min-h-[500px]"
           >
-            <div className="absolute border-opacity-20 border-indigo-500 dark:border-indigo-400/20 h-full border-2 left-1/2 transform -translate-x-1/2 rounded-full transition-colors duration-1000"></div>
+            {/* S 型蜿蜒曲线：节点之间左右摆动，形成波浪 */}
+            <svg
+              className="absolute inset-0 w-full h-full"
+              viewBox="0 0 100 1000"
+              preserveAspectRatio="none"
+              style={{ pointerEvents: 'none' }}
+            >
+              <defs>
+                <linearGradient id="sTimelineGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#6366f1" stopOpacity="0.95" />
+                  <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.85" />
+                  <stop offset="100%" stopColor="#c084fc" stopOpacity="0.6" />
+                </linearGradient>
+              </defs>
+              <path
+                d={(() => {
+                  const n = Math.max(timelinePosts.length, 1);
+                  const segH = 1000 / n;
+                  let d = 'M 50,0';
+                  for (let i = 0; i < n; i++) {
+                    const y0 = i * segH;
+                    const y1 = (i + 1) * segH;
+                    const dir = i % 2 === 0 ? 1 : -1;
+                    d += ` C ${50 + 15 * dir},${y0 + segH / 3} ${50 - 15 * dir},${y0 + (2 * segH) / 3} ${50},${y1}`;
+                  }
+                  return d;
+                })()}
+                fill="none"
+                stroke="url(#sTimelineGrad)"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+            </svg>
 
             <div className="relative z-10 flex flex-col gap-16">
               <AnimatePresence mode='popLayout'>
