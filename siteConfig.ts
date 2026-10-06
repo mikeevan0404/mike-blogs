@@ -42,7 +42,7 @@ export const siteConfig = {
     cover: "/music/cover.jpg",
   },
   social: {
-    github: "",
+    github: "https://github.com/mikeevan0404",
     gitee: "",
     google: "",
     email: "",
