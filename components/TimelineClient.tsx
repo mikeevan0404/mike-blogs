@@ -258,20 +258,13 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
             transition={{ duration: 0.3 }}
             className="relative overflow-hidden p-2 md:p-10 min-h-[500px]"
           >
-            {/* S 型蜿蜒曲线：连续正弦波浪，节点落在过零点，线条纤细连贯 */}
+            {/* S 型蜿蜒曲线：白色细线，连续正弦波浪，节点落在过零点 */}
             <svg
               className="absolute inset-0 w-full h-full"
               viewBox="0 0 100 1000"
               preserveAspectRatio="none"
               style={{ pointerEvents: 'none' }}
             >
-              <defs>
-                <linearGradient id="sTimelineGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#6366f1" stopOpacity="0.95" />
-                  <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.85" />
-                  <stop offset="100%" stopColor="#c084fc" stopOpacity="0.6" />
-                </linearGradient>
-              </defs>
               <path
                 d={(() => {
                   const n = Math.max(timelinePosts.length, 1);
@@ -287,8 +280,8 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
                   return d;
                 })()}
                 fill="none"
-                stroke="url(#sTimelineGrad)"
-                strokeWidth="1.5"
+                stroke="rgba(255,255,255,0.6)"
+                strokeWidth="1"
                 strokeLinecap="round"
               />
             </svg>
