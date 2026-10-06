@@ -18,8 +18,10 @@ export default function TimelineNode({ post, index }: { post: any, index: number
       {/* 留出对面的一半空白（S 曲线由此穿过） */}
       <div className="order-1 w-5/12 hidden md:block"></div>
 
-      {/* 中间的圆形节点 */}
-      <div className="z-20 flex items-center justify-center order-1 bg-white dark:bg-slate-900 shadow-xl w-6 h-6 rounded-full border-4 border-indigo-400 ring-4 ring-indigo-200/50 dark:ring-indigo-900/30 transition-colors duration-1000"></div>
+      {/* 中间的圆形节点：透明圆环，波浪线从中穿过，保持视觉连续 */}
+      <div className="z-20 flex items-center justify-center order-1 w-6 h-6 rounded-full border border-white/60 dark:border-white/40 bg-white/10 dark:bg-slate-900/20 backdrop-blur-[1px]">
+        <div className="w-2 h-2 rounded-full bg-white/80 dark:bg-white/60 shadow"></div>
+      </div>
 
       {/* 卡片实体 */}
       <Link href={`/posts/${post.slug}`} className="order-1 w-full md:w-5/12 group">

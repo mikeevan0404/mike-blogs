@@ -268,21 +268,21 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
               <path
                 d={(() => {
                   const n = Math.max(timelinePosts.length, 1);
-                  const segH = 1000 / n;
-                  const A = 12;
-                  let d = 'M 50,0';
-                  for (let i = 0; i < n; i++) {
-                    const y0 = i * segH;
-                    const y1 = (i + 1) * segH;
-                    const dir = i % 2 === 0 ? 1 : -1;
-                    d += ` C ${50 + A * 0.62 * dir},${y0 + segH * 0.25} ${50 + A * 0.62 * dir},${y0 + segH * 0.75} ${50},${y1}`;
+                  const A = 16;
+                  const steps = 320;
+                  let d = '';
+                  for (let i = 0; i <= steps; i++) {
+                    const y = (i / steps) * 1000;
+                    const x = 50 + A * Math.sin((Math.PI * y) / (1000 / n));
+                    d += (i === 0 ? 'M' : 'L') + ` ${x.toFixed(2)},${y.toFixed(2)}`;
                   }
                   return d;
                 })()}
                 fill="none"
-                stroke="rgba(255,255,255,0.6)"
-                strokeWidth="1"
+                stroke="rgba(255,255,255,0.7)"
+                strokeWidth="1.2"
                 strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
 
