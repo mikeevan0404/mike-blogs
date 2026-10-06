@@ -20,6 +20,7 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
   const gridScrollRef = useRef<HTMLDivElement>(null);
   const timelineWrapRef = useRef<HTMLDivElement>(null);
   const [wavePath, setWavePath] = useState("");
+  const [waveA, setWaveA] = useState(0);
 
   // 🌟 核心魔法 1：强制移动端为矩阵模式
   useEffect(() => {
@@ -55,6 +56,8 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
       const steps = 400;
       let d = '';
       let started = false;
+      // 🌟 波形：每个节点 = 弧线的凸起顶点（左右交替），卡片对齐凸起
+      // 段 sign 交替：段0 右凸→左凸(+cos)，段1 左凸→右凸(-cos)，以此类推
       const clampSeg = (y: number) => {
         if (y <= ys[0]) return 0;
         if (y >= ys[ys.length - 1]) return ys.length - 2;
@@ -70,11 +73,13 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
         const seg = clampSeg(y);
         const y0 = ys[seg];
         const y1 = ys[seg + 1];
-        const x = cx + A * Math.sin((2 * Math.PI * (y - y0)) / (y1 - y0));
+        const sign = seg % 2 === 0 ? 1 : -1;
+        const x = cx + sign * A * Math.cos((Math.PI * (y - y0)) / (y1 - y0));
         d += (started ? 'L' : 'M') + ` ${x.toFixed(1)},${y.toFixed(1)}`;
         started = true;
       }
       setWavePath(d);
+      setWaveA(A);
     };
     const t = setTimeout(buildWave, 500);
     buildWave();
@@ -334,6 +339,7 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
                     key={post.slug}
                     post={post}
                     index={index + 1}
+                    dotShift={index % 2 === 0 ? waveA : -waveA}
                   />
                 ))}
               </AnimatePresence>
