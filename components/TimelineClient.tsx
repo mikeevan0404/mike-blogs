@@ -279,8 +279,8 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
                   return d;
                 })()}
                 fill="none"
-                stroke="rgba(255,255,255,0.7)"
-                strokeWidth="1.2"
+                stroke="rgba(255,255,255,0.85)"
+                strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
