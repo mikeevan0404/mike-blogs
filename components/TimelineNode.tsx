@@ -16,7 +16,7 @@ export default function TimelineNode({ post, index }: { post: any, index: number
       className={`mb-12 flex justify-between items-center w-full ${isLeft ? 'md:flex-row-reverse' : 'flex-row'}`}
     >
       {/* 留出对面的一半空白（S 曲线由此穿过） */}
-      <div className="order-1 w-5/12 hidden md:block"></div>
+      <div className="order-1 w-4/12 hidden md:block"></div>
 
       {/* 中间的圆形节点：透明圆环，波浪线从中穿过，保持视觉连续 */}
       <div className="z-20 flex items-center justify-center order-1 w-6 h-6 rounded-full border border-white/60 dark:border-white/40 bg-white/10 dark:bg-slate-900/20 backdrop-blur-[1px]">
@@ -24,7 +24,7 @@ export default function TimelineNode({ post, index }: { post: any, index: number
       </div>
 
       {/* 卡片实体 */}
-      <Link href={`/posts/${post.slug}`} className="order-1 w-full md:w-5/12 group">
+      <Link href={`/posts/${post.slug}`} className="order-1 w-full md:w-4/12 group">
         <div className="bg-white/50 dark:bg-slate-800/50 backdrop-blur-lg rounded-3xl shadow-lg border border-white/60 dark:border-white/10 transition-all duration-500 hover:scale-[1.03] hover:bg-white/70 dark:hover:bg-slate-800/70 hover:shadow-2xl overflow-hidden flex flex-col">
 
           {/* 上半部分：封面图 */}

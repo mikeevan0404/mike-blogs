@@ -268,7 +268,7 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
               <path
                 d={(() => {
                   const n = Math.max(timelinePosts.length, 1);
-                  const A = 16;
+                  const A = 12;
                   const steps = 320;
                   let d = '';
                   for (let i = 0; i <= steps; i++) {
