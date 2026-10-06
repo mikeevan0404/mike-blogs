@@ -3,7 +3,7 @@ title: 我的世界生存模式：一个初中生的心得
 date: '2026-10-06'
 tags: [游戏, 我的世界, 生存]
 mood: ''
-cover: ''
+cover: /posts/minecraft-cover.jpg
 description: 玩 MC 生存模式的一点真实体会：挖矿、建家、被苦力怕吓到，以及和朋友联机的快乐。
 ---
 
