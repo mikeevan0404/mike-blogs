@@ -51,7 +51,7 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
       const cw = c.clientWidth;
       const ch = c.clientHeight;
       const cx = cw / 2;
-      const A = Math.min(cw * 0.11, 100);
+      const A = Math.min(cw * 0.16, 135);
       const steps = 400;
       let d = '';
       let started = false;
@@ -70,7 +70,7 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
         const seg = clampSeg(y);
         const y0 = ys[seg];
         const y1 = ys[seg + 1];
-        const x = cx + A * Math.sin(Math.PI * (y - y0) / (y1 - y0));
+        const x = cx + A * Math.sin((2 * Math.PI * (y - y0)) / (y1 - y0));
         d += (started ? 'L' : 'M') + ` ${x.toFixed(1)},${y.toFixed(1)}`;
         started = true;
       }
