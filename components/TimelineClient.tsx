@@ -258,7 +258,7 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
             transition={{ duration: 0.3 }}
             className="relative overflow-hidden p-2 md:p-10 min-h-[500px]"
           >
-            {/* S 型蜿蜒曲线：节点之间左右摆动，形成波浪 */}
+            {/* S 型蜿蜒曲线：连续正弦波浪，节点落在过零点，线条纤细连贯 */}
             <svg
               className="absolute inset-0 w-full h-full"
               viewBox="0 0 100 1000"
@@ -276,18 +276,19 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
                 d={(() => {
                   const n = Math.max(timelinePosts.length, 1);
                   const segH = 1000 / n;
+                  const A = 12;
                   let d = 'M 50,0';
                   for (let i = 0; i < n; i++) {
                     const y0 = i * segH;
                     const y1 = (i + 1) * segH;
                     const dir = i % 2 === 0 ? 1 : -1;
-                    d += ` C ${50 + 15 * dir},${y0 + segH / 3} ${50 - 15 * dir},${y0 + (2 * segH) / 3} ${50},${y1}`;
+                    d += ` C ${50 + A * 0.62 * dir},${y0 + segH * 0.25} ${50 + A * 0.62 * dir},${y0 + segH * 0.75} ${50},${y1}`;
                   }
                   return d;
                 })()}
                 fill="none"
                 stroke="url(#sTimelineGrad)"
-                strokeWidth="3"
+                strokeWidth="1.5"
                 strokeLinecap="round"
               />
             </svg>
