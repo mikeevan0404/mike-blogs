@@ -44,9 +44,9 @@
     }
   }
 
-  /* 背景渐变：桌面端 15s 流动动画，移动端与"减弱动态效果"模式下静止显示 */
+  /* 背景渐变：静止显示（避免持续重绘拖慢滚动），移动端与"减弱动态效果"模式下同样静止 */
   .gradient-bg {
-    animation: gradientMove 15s ease infinite;
+    animation: none;
   }
   @media (max-width: 768px) {
     .gradient-bg {
