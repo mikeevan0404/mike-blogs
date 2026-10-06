@@ -18,6 +18,8 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
 
   const searchContainerRef = useRef<HTMLDivElement>(null);
   const gridScrollRef = useRef<HTMLDivElement>(null);
+  const timelineWrapRef = useRef<HTMLDivElement>(null);
+  const [wavePath, setWavePath] = useState("");
 
   // 🌟 核心魔法 1：强制移动端为矩阵模式
   useEffect(() => {
@@ -33,6 +35,51 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
     window.addEventListener('resize', enforceMobileView);
     return () => window.removeEventListener('resize', enforceMobileView);
   }, []);
+
+  // 🌟 波浪线：实测每个节点圆点的位置，让波浪精确穿过节点（过零点对齐圆点）
+  useEffect(() => {
+    const buildWave = () => {
+      const c = timelineWrapRef.current;
+      if (!c) return;
+      const dots = Array.from(c.querySelectorAll<HTMLElement>('.timeline-dot'));
+      if (dots.length < 2) return;
+      const cRect = c.getBoundingClientRect();
+      const ys = dots.map(d => {
+        const r = d.getBoundingClientRect();
+        return r.top - cRect.top + r.height / 2;
+      });
+      const cw = c.clientWidth;
+      const ch = c.clientHeight;
+      const cx = cw / 2;
+      const A = Math.min(cw * 0.11, 100);
+      const steps = 400;
+      let d = '';
+      const clampSeg = (y: number) => {
+        if (y <= ys[0]) return 0;
+        if (y >= ys[ys.length - 1]) return ys.length - 2;
+        for (let j = 0; j < ys.length - 1; j++) {
+          if (y >= ys[j] && y <= ys[j + 1]) return j;
+        }
+        return ys.length - 2;
+      };
+      for (let i = 0; i <= steps; i++) {
+        const y = (i / steps) * ch;
+        const seg = clampSeg(y);
+        const y0 = ys[seg];
+        const y1 = ys[seg + 1];
+        const x = cx + A * Math.sin(Math.PI * (y - y0) / (y1 - y0));
+        d += (i === 0 ? 'M' : 'L') + ` ${x.toFixed(1)},${y.toFixed(1)}`;
+      }
+      setWavePath(d);
+    };
+    const t = setTimeout(buildWave, 500);
+    buildWave();
+    window.addEventListener('resize', buildWave);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener('resize', buildWave);
+    };
+  }, [posts, selectedTag]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -257,34 +304,24 @@ export default function TimelineClient({ posts: initialPosts, tags }: { posts: a
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
             className="relative overflow-hidden p-2 md:p-10 min-h-[500px]"
+            ref={timelineWrapRef}
           >
-            {/* S 型蜿蜒曲线：白色细线，连续正弦波浪，节点落在过零点 */}
-            <svg
-              className="absolute inset-0 w-full h-full"
-              viewBox="0 0 100 1000"
-              preserveAspectRatio="none"
-              style={{ pointerEvents: 'none' }}
-            >
-              <path
-                d={(() => {
-                  const n = Math.max(timelinePosts.length, 1);
-                  const A = 12;
-                  const steps = 320;
-                  let d = '';
-                  for (let i = 0; i <= steps; i++) {
-                    const y = (i / steps) * 1000;
-                    const x = 50 + A * Math.sin((Math.PI * y) / (1000 / n));
-                    d += (i === 0 ? 'M' : 'L') + ` ${x.toFixed(2)},${y.toFixed(2)}`;
-                  }
-                  return d;
-                })()}
-                fill="none"
-                stroke="rgba(255,255,255,0.85)"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            {/* S 型蜿蜒曲线：按实测节点位置生成的连续正弦波浪，节点圆点精确落在线上 */}
+            {wavePath && (
+              <svg
+                className="absolute inset-0 w-full h-full"
+                style={{ pointerEvents: 'none' }}
+              >
+                <path
+                  d={wavePath}
+                  fill="none"
+                  stroke="rgba(255,255,255,0.85)"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            )}
 
             <div className="relative z-10 flex flex-col gap-16">
               <AnimatePresence mode='popLayout'>

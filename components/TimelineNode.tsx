@@ -9,8 +9,8 @@ export default function TimelineNode({ post, index }: { post: any, index: number
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`mb-12 flex justify-between items-center w-full ${isLeft ? 'md:flex-row-reverse' : 'flex-row'}`}
@@ -19,7 +19,7 @@ export default function TimelineNode({ post, index }: { post: any, index: number
       <div className="order-1 w-4/12 hidden md:block"></div>
 
       {/* 中间的圆形节点：透明圆环，波浪线从中穿过，保持视觉连续 */}
-      <div className="z-20 flex items-center justify-center order-1 w-6 h-6 rounded-full border border-white/60 dark:border-white/40 bg-white/10 dark:bg-slate-900/20 backdrop-blur-[1px]">
+      <div className="timeline-dot z-20 flex items-center justify-center order-1 w-6 h-6 rounded-full border border-white/60 dark:border-white/40 bg-white/10 dark:bg-slate-900/20 backdrop-blur-[1px]">
         <div className="w-2 h-2 rounded-full bg-white/80 dark:bg-white/60 shadow"></div>
       </div>
 
