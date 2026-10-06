@@ -2,7 +2,7 @@
 
 export const siteConfig = {
   // 1. 网站标题与博主信息
-  title: "mike の 小窝",
+  title: "mike の web",
   faviconUrl: "/avatar.png",
   authorName: "mike",
   bio: "一个喜欢折腾电脑的初中生。平时爱研究各种科技新东西，从硬件装机到软件调试都愿意动手试试；游戏常玩《我的世界》和《CS2》，正在努力读书，希望以后能做出属于自己的小项目。",
@@ -12,7 +12,7 @@ export const siteConfig = {
   // 👇 【新增】导航栏中间的那个后缀/分隔符（默认是 の）
   navSuffix: "の",
 
-  navAfter: "小窝",
+  navAfter: "web",
 
   // 2. 头像设置 (支持网络链接，或将图片放入 public 文件夹后使用 "/me.jpg")
   avatarUrl: "/avatar.png",
@@ -77,6 +77,6 @@ export const siteConfig = {
     maxOutputTokens: 150,
     temperature: 0.85,
   },
-  friendLinkApplyFormat: "名称：我的博客小窝\n简介：在这里写一句你的站点介绍\n链接：https://你的站点地址\n头像：https://你的头像地址",
+  friendLinkApplyFormat: "名称：我的博客\n简介：在这里写一句你的站点介绍\n链接：https://你的站点地址\n头像：https://你的头像地址",
   enableLevelSystem: true,
 };
