@@ -99,14 +99,14 @@ export default function Home() {
 
             <main className="flex flex-col gap-6 w-full mt-6">
 
-              {/* 第一行：个人信息 + 播放器 */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full">
-                {/* 手机上占满1列，电脑上占7列 */}
-                <div className="col-span-1 lg:col-span-7 flex flex-col">
+              {/* 第一行：个人信息 + 播放器（md 及以上并排） */}
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 w-full">
+                {/* 手机上占满1列，平板/电脑上占7列 */}
+                <div className="col-span-1 md:col-span-7 flex flex-col">
                     <ProfileCard postCount={allPosts.length} chatterCount={chatterCount} photoCount={realPhotoCount}/>
                 </div>
-                {/* 手机上占满1列，电脑上占5列 */}
-                <div className="col-span-1 lg:col-span-5 flex flex-col">
+                {/* 手机上占满1列，平板/电脑上占5列 */}
+                <div className="col-span-1 md:col-span-5 flex flex-col">
                     <CloudPlayer/>
                 </div>
               </div>
